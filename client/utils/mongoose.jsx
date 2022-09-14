@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URL:string= process.env.MONGO_URL || "const";
+const MONGO_URL= process.env.MONGO_URL || "const";
 
 if (!MONGO_URL) {
   throw new Error(
@@ -14,7 +14,7 @@ if (!MONGO_URL) {
  * during API Route usage.
  */
 
-let cached: any = global.mongoose;
+let cached = global.mongoose;
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };

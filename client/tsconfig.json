@@ -22,10 +22,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "utils/mongoose.jsx",
   ],
   "exclude": [
-    "node_modules",
-    "./utils/mongoose.tsx"
+    "node_modules"
   ]
 }
