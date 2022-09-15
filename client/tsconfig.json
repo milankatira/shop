@@ -22,9 +22,12 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "utils/mongoose.jsx",
+    "**/*.tsx",
+    "utils/mongoose.jsx",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./next.config.js",
+    "./tailwind.config.js"
   ]
 }

@@ -2,7 +2,14 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { Formik, Form, Field } from "formik";
+import { initialValue } from "../constant/Intial_value";
+import { productValidator } from "../validator/Product";
 const Home: NextPage = () => {
+  const onFormSubmit = (data: any) => {
+    console.log(data);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -12,12 +19,98 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="mt-10 w-full flex justify-center items-center">
-        <TextField
-          className="mx-40 w-1/2"
-          id="outlined-basic"
-          label="Product"
-          variant="outlined"
-        />
+        <Formik
+          initialValues={initialValue.Product}
+          validationSchema={productValidator}
+          onSubmit={onFormSubmit}
+        >
+          {(props: any) => {
+            return (
+              <Form>
+                <Field
+                  as={TextField}
+                  className="mx-40 w-1/2"
+                  id="outlined-basic"
+                  label="Product"
+                  variant="outlined"
+                  helperText={
+                    props.touched && props.touched.name && props.errors.name
+                  }
+                  error={
+                    props.touched && props.touched.name && props.errors.name
+                  }
+                  name="name"
+                />
+                <br />
+                <br />
+                <Field
+                  as={TextField}
+                  className="mx-40 w-1/2"
+                  id="outlined-basic"
+                  label="Quntity"
+                  variant="outlined"
+                  name="quntity"
+                  helperText={
+                    props.touched &&
+                    props.touched.quntity &&
+                    props.errors.quntity
+                  }
+                  error={
+                    props.touched &&
+                    props.touched.quntity &&
+                    props.errors.quntity
+                  }
+                />
+                <br />
+                <br />
+                <Field
+                  as={TextField}
+                  className="mx-40 w-1/2"
+                  id="outlined-basic"
+                  label="Price"
+                  variant="outlined"
+                  name="price"
+                  helperText={
+                    props.touched && props.touched.price && props.errors.price
+                  }
+                  error={
+                    props.touched && props.touched.price && props.errors.price
+                  }
+                />
+                <br />
+                <br />
+                <Field
+                  error={
+                    props.touched &&
+                    props.touched.alertquantity &&
+                    props.errors.alertquantity
+                  }
+                  as={TextField}
+                  className="mx-40 w-1/2"
+                  id="outlined-basic"
+                  label="alertquantity"
+                  variant="outlined"
+                  name="alertquantity"
+                  helperText={
+                    props.touched &&
+                    props.touched.alertquantity &&
+                    props.errors.alertquantity
+                  }
+                />
+                <br />
+                <br />
+                <Button
+                  className="mx-40 bg-blue-500 w-1/2"
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </Form>
+            );
+          }}
+        </Formik>
       </main>
     </div>
   );
