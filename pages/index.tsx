@@ -6,9 +6,18 @@ import Button from "@mui/material/Button";
 import { Formik, Form, Field } from "formik";
 import { initialValue } from "../constant/Intial_value";
 import { productValidator } from "../validator/Product";
+import { AddProduct } from "../Api/Product";
+import { Iproduct } from "../interface";
 const Home: NextPage = () => {
-  const onFormSubmit = (data: any) => {
+  const onFormSubmit = (data: Iproduct) => {
     console.log(data);
+    const packet = {
+      name: data.name,
+      price: data.price,
+      quntity: data.quntity,
+      alertquantity: data.alertquantity,
+    };
+    AddProduct(packet);
   };
   return (
     <div className={styles.container}>
@@ -50,6 +59,7 @@ const Home: NextPage = () => {
                   label="Quntity"
                   variant="outlined"
                   name="quntity"
+                  type="number"
                   helperText={
                     props.touched &&
                     props.touched.quntity &&
@@ -70,6 +80,7 @@ const Home: NextPage = () => {
                   label="Price"
                   variant="outlined"
                   name="price"
+                  type="number"
                   helperText={
                     props.touched && props.touched.price && props.errors.price
                   }
@@ -90,6 +101,7 @@ const Home: NextPage = () => {
                   id="outlined-basic"
                   label="alertquantity"
                   variant="outlined"
+                  type="number"
                   name="alertquantity"
                   helperText={
                     props.touched &&

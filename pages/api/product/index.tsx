@@ -1,6 +1,5 @@
-// import dbConnect from "../../../utils/mongo";
-import dbConnect from "../../utils/mongoose";
-import Product from "../../model/product";
+import dbConnect from "../../../utils/mongoose";
+import Product from "../../../model/product";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

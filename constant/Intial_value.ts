@@ -1,8 +1,10 @@
+
 export const initialValue = {
   Product: {
     name: "",
-    price: "",
-    quntity: "",
-    alertquantity: "",
+    price: 0,
+    quntity: 0,
+    alertquantity: 0,
   },
 };
+
