@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-const MONGO_URL = "mongodb://localhost:27017/shop";
+const MONGO_URL =
+  "mongodb+srv://milan:PbKpQt6XWULULzQH@cluster0.hhgyx6p.mongodb.net/?retryWrites=true&w=majority";
 
-// const MONGO_URL= process.env.MONGO_URL;
 if (!MONGO_URL) {
   throw new Error(
     "Please define the MONGO_URL environment variable inside .env.local"
