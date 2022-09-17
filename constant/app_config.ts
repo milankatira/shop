@@ -10,4 +10,4 @@ const masterConfig = {
   },
 };
 
-export const { server_url } = masterConfig["local"];
+export const { server_url } = masterConfig["staging"];
