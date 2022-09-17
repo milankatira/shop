@@ -11,23 +11,11 @@ export default async function handler(
 
   if (method === "GET") {
     try {
-      const product = await Product.find();
-      res
-        .status(200)
-        .json({ product, message: "product fetch successfully" });
+      const product = await Product.find({ quantity: { $lt: 20 } });
+      res.status(200).json({ product, message: "product fetch successfully" });
     } catch (err) {
       res.status(500).json(err);
     }
   }
 
-  if (method === "POST") {
-    try {
-      const product = await Product.create(req.body);
-      res
-        .status(201)
-        .json({ product, message: "product created successfully" });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
 }

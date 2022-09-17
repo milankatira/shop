@@ -14,7 +14,13 @@ const Product: NextPage<Productprops> = ({ product }) => {
     setproductData(await (await GetProduct()).data.product);
   };
   useEffect(() => {
-    setproductData(product);
+    setproductData(
+      product.filter(
+        (data) =>
+          data.quntity < data.alertquantity ||
+          data.quntity === data.alertquantity
+      )
+    );
   }, []);
   return (
     <div>

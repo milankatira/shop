@@ -1,6 +1,7 @@
 import dbConnect from "../../../utils/mongoose";
 import Product from "../../../model/product";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { sendEmail } from "../../../utils/sendEmail";
 
 export default async function handler(
   req: NextApiRequest,
@@ -30,8 +31,17 @@ export default async function handler(
         quntity: updatedQuantity,
       };
 
-      const updatedProduct = await Product.findByIdAndUpdate(id, packet);
+      await Product.findByIdAndUpdate(id, packet);
 
+      const option = {
+        email: "milankatira26@gmail.com",
+        subject: "product update",
+        message:
+          products.quntity > 0
+            ? `${products.name} is only ${products.quntity}`
+            : `${products.name} is not available`,
+      };
+      await sendEmail(option);
       res.status(200).json({ message: "product updated successfully" });
     } catch (err: any) {
       res.status(500).json({ message: err.message });

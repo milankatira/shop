@@ -22,13 +22,6 @@ const Home: NextPage = () => {
           <GenerateBill />
         </main>
       </div>
-      <div className="w-full flex justify-center">
-        <Link href="/product">
-          <Button className="mx-auto bg-blue-500" variant="contained">
-            view Product
-          </Button>
-        </Link>
-      </div>
     </div>
   );
 };
