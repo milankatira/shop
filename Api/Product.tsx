@@ -1,5 +1,5 @@
 import { product_url, single_product_url } from "../constant/api_url";
-import { Iproduct } from "../interface";
+import { Iproduct, IUpdateproduct } from "../interface";
 import axios from "axios";
 
 export const AddProduct = (packet: Iproduct) =>
@@ -18,7 +18,7 @@ export const GetProduct = () =>
       throw err;
     });
 
-export const UpdateProduct = (id: string, packet: Iproduct) =>
+export const UpdateProduct = (id: string, packet: IUpdateproduct) =>
   axios
     .post(single_product_url(id), packet)
     .then((response) => response)

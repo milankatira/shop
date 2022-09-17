@@ -12,3 +12,7 @@ export interface IproductApi {
   price: number;
   alertquantity: number;
 }
+
+export interface IUpdateproduct {
+  quntity: number;
+}

@@ -1,36 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { Formik, Form, Field } from "formik";
-import { initialValue } from "../constant/Intial_value";
-import { productValidator } from "../validator/Product";
-import { AddProduct } from "../Api/Product";
-import { Iproduct } from "../interface";
-import { PDFExport } from "@progress/kendo-react-pdf";
 import React from "react";
 import ProductForm from "../components/ProductForm";
 import GenerateBill from "../components/GenerateBill";
+import { Button } from "@mui/material";
+import Link from "next/link";
 const Home: NextPage = () => {
-  const onFormSubmit = (data: Iproduct) => {
-    console.log("data");
-
-    const packet = {
-      name: data.name,
-      price: data.price,
-      quntity: data.quntity,
-      alertquantity: data.alertquantity,
-    };
-    AddProduct(packet);
-  };
-
-  const GeneratePdf = () => {
-    console.log("data");
-    if (pdfExportComponent.current) {
-      pdfExportComponent.current.save();
-    }
-  };
-  const pdfExportComponent: any = React.useRef(null);
   return (
     <div>
       <Head>
@@ -46,6 +21,13 @@ const Home: NextPage = () => {
         <main className="mt-10 w-full flex justify-center items-center">
           <GenerateBill />
         </main>
+      </div>
+      <div className="w-full flex justify-center">
+        <Link href="/product">
+          <Button className="mx-auto bg-blue-500" variant="contained">
+            view Product
+          </Button>
+        </Link>
       </div>
     </div>
   );

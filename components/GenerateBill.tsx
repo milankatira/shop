@@ -11,27 +11,28 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
+import toast from "react-hot-toast";
 const GenerateBill = () => {
   const pdfExportComponent: any = React.useRef(null);
   const [productData, setproductData] = useState<Iproduct[]>([]);
 
   useEffect(() => {
-    GetProduct().then((res) => setproductData(res.data));
+    GetProduct().then((res) => setproductData(res.data.product));
   }, []);
 
-  console.log(productData);
-  const onFormSubmit = (data: any) => {
-    console.log(data, "Data", data.quntity);
-    if (pdfExportComponent.current) {
-      pdfExportComponent.current.save();
-    }
-    UpdateProduct(data.name, {
+  const onFormSubmit = async (data: any) => {
+    const generatePrint = () => {
+      if (pdfExportComponent.current) {
+        pdfExportComponent.current.save();
+      }
+    };
+    await UpdateProduct(data.name, {
       quntity: data.quntity,
-      name: "",
-      price: 0,
-      alertquantity: 0
-    });
+    })
+      .then((res) => {
+        toast.success(res?.data?.message), generatePrint();
+      })
+      .catch((error) => toast.error(error?.response?.data?.message));
   };
 
   return (
@@ -41,26 +42,13 @@ const GenerateBill = () => {
       onSubmit={onFormSubmit}
     >
       {(props: any) => {
-        console.log(props, "props");
         return (
           <Form className="w-full p-4">
-            <h1 className="text-lg font-bold text-center">Add Product</h1>
+            <h1 className="text-lg font-bold text-center">Generate bill</h1>
 
             <PDFExport paperSize="A4" margin="1cm" ref={pdfExportComponent}>
               <br />
               <br />
-              {/* <Field
-                as={TextField}
-                className="w-full"
-                id="outlined-basic"
-                label="Product"
-                variant="outlined"
-                helperText={
-                  props.touched && props.touched.name && props.errors.name
-                }
-                error={props.touched && props.touched.name && props.errors.name}
-                name="name"
-              /> */}
 
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-error">product</InputLabel>
@@ -76,15 +64,15 @@ const GenerateBill = () => {
                   name="name"
                 >
                   {productData &&
-                    productData.map((singleValue: any) => (
+                    productData?.map((singleValue: any) => (
                       <MenuItem value={singleValue._id} key={singleValue._id}>
                         {singleValue.name}
                       </MenuItem>
                     ))}
-                  <FormHelperText>
-                    {props.touched && props.touched.name && props.errors.name}
-                  </FormHelperText>
                 </Field>
+                <h1 className="text-red-500">
+                  {props.touched && props.touched.name && props.errors.name}
+                </h1>
               </FormControl>
               <br />
               <br />

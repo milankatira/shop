@@ -19,7 +19,12 @@ export default async function handler(
 
       const updatedQuantity = products.quntity - req.body.quntity;
       if (updatedQuantity < 0) {
-        throw new Error(`Product not avalable`);
+        if (products.quntity > 0) {
+          throw new Error(
+            `Product not avalable. only ${products.quntity} available`
+          );
+        }
+        throw new Error(`Product not avalable.`);
       }
       const packet = {
         quntity: updatedQuantity,
@@ -27,9 +32,9 @@ export default async function handler(
 
       const updatedProduct = await Product.findByIdAndUpdate(id, packet);
 
-      res.status(200).json(updatedProduct);
+      res.status(200).json({ message: "product updated successfully" });
     } catch (err: any) {
-      res.status(500).json(err.message);
+      res.status(500).json({ message: err.message });
     }
   }
 
@@ -37,9 +42,8 @@ export default async function handler(
     try {
       const product = await Product.findByIdAndDelete(id);
       res.status(200).json(product);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+    } catch (err: any) {
+      res.status(500).json({ message: err.message });
     }
   }
 }

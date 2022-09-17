@@ -6,7 +6,7 @@ import { initialValue } from "../constant/Intial_value";
 import { productValidator } from "../validator/Product";
 import { Iproduct } from "../interface";
 import { AddProduct } from "../Api/Product";
-
+import toast from "react-hot-toast";
 const ProductForm = () => {
   const onFormSubmit = (data: Iproduct) => {
     const packet = {
@@ -15,7 +15,9 @@ const ProductForm = () => {
       quntity: data.quntity,
       alertquantity: data.alertquantity,
     };
-    AddProduct(packet);
+    AddProduct(packet)
+      .then((res) => toast.success(res?.data?.message))
+      .catch((error) => toast.error(error?.response?.data?.message));
   };
 
   return (
