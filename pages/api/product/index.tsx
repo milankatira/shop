@@ -12,9 +12,7 @@ export default async function handler(
   if (method === "GET") {
     try {
       const product = await Product.find();
-      res
-        .status(200)
-        .json({ product, message: "product fetch successfully" });
+      res.status(200).json({ product, message: "product fetch successfully" });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -26,8 +24,12 @@ export default async function handler(
       res
         .status(201)
         .json({ product, message: "product created successfully" });
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (err: any) {
+      if (err.code === 11000) {
+        const message = `Duplicate ${Object.keys(err.keyValue)} Entered`;
+        err.message = message;
+      }
+      res.status(500).json({ message: err.message });
     }
   }
 }
