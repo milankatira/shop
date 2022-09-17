@@ -41,7 +41,10 @@ export default async function handler(
             ? `${products.name} is only ${products.quntity}`
             : `${products.name} is not available`,
       };
-      await sendEmail(option);
+
+      if (updatedQuantity < 0) {
+        await sendEmail(option);
+      }
       res.status(200).json({ message: "product updated successfully" });
     } catch (err: any) {
       res.status(500).json({ message: err.message });
