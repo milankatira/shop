@@ -3,7 +3,7 @@ const masterConfig = {
     server_url: "http://localhost:3000/api",
   },
   staging: {
-    server_url: "https://shop-two-sable.vercel.app/api",
+    server_url: "https://classy-blini-247a61.netlify.app/api",
   },
   prod: {
     server_url: "https://hire.inaraconsultancy.com",
